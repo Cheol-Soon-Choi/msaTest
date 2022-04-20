@@ -1,4 +1,4 @@
-package com.nyang.msatest.Model.entity;
+package com.ccs.Model.entity;
 
 import lombok.Builder;
 import lombok.Getter;

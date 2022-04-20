@@ -20,7 +20,7 @@ subprojects {
     apply plugin: 'org.springframework.boot'
     apply plugin: 'io.spring.dependency-management'
 
-    group = 'com.demo'
+    group = 'com.ccs'
     version = '0.0.1-SNAPSHOT'
     sourceCompatibility = '11'
 
@@ -47,18 +47,34 @@ subprojects {
         implementation 'org.postgresql:postgresql:42.3.3'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    }
-
-}
-
-project(':Service_A1'){
-    dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     }
+
+    dependencyManagement {
+        imports {
+            mavenBom ("org.springframework.cloud:spring-cloud-dependencies:2020.0.1")
+        }
+    }
+
+}
+
+
+project(':Service_A1'){
+    dependencies {
+
+    }
 }
 project(':Service_A1'){
     dependencies {
+
+    }
+}
+
+project(':ConfigServer'){
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-config-server'
+        implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
     }
 }

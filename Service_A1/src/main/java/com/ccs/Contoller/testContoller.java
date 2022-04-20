@@ -1,6 +1,6 @@
-package com.nyang.msatest.Contoller;
+package com.ccs.Contoller;
 
-import com.nyang.msatest.Model.entity.License;
+import com.ccs.Model.entity.License;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
