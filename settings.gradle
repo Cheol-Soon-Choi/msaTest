@@ -1,0 +1,4 @@
+rootProject.name = 'msaTest'
+include 'Service_A1'
+include 'Service_B1'
+
