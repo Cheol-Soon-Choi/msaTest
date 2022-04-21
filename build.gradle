@@ -64,12 +64,14 @@ project(':Service_A1'){
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
+        implementation 'org.springframework.security:spring-security-rsa'
     }
 }
 project(':Service_B1'){
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
+        implementation 'org.springframework.security:spring-security-rsa'
     }
 }
 
