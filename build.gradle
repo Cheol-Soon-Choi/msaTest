@@ -62,12 +62,14 @@ subprojects {
 
 project(':Service_A1'){
     dependencies {
-
+        implementation 'org.springframework.cloud:spring-cloud-config-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-config'
     }
 }
-project(':Service_A1'){
+project(':Service_B1'){
     dependencies {
-
+        implementation 'org.springframework.cloud:spring-cloud-config-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-config'
     }
 }
 
