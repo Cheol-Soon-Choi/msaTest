@@ -53,21 +53,21 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom ("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
         }
     }
 
 }
 
 
-project(':Service_A1'){
+project(':Service_A1') {
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.security:spring-security-rsa'
     }
 }
-project(':Service_B1'){
+project(':Service_B1') {
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
@@ -75,10 +75,17 @@ project(':Service_B1'){
     }
 }
 
-project(':ConfigServer'){
+project(':ConfigServer') {
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-config-server'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
 
     }
+}
+
+project(':EurekaServer') {
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+    }
+
 }
