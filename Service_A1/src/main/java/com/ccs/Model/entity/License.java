@@ -36,8 +36,22 @@ public class License {
     @Column(name = "comment")
     private String comment;
 
+    @Transient
+    private String organizationName = "";
+
+    @Transient
+    private String contactName = "";
+
+    @Transient
+    private String contactPhone = "";
+
+    @Transient
+    private String contactEmail = "";
+
     @Builder
-    public License(String licenseId, String organizationId, String productName, String licenseType, int licenseMax, int licenseAllocated, String comment) {
+    public License(String licenseId, String organizationId, String productName, String licenseType,
+                   int licenseMax, int licenseAllocated, String comment,
+                   String organizationName, String contactName, String contactPhone, String contactEmail) {
         this.licenseId = licenseId;
         this.organizationId = organizationId;
         this.productName = productName;
@@ -45,6 +59,10 @@ public class License {
         this.licenseMax = licenseMax;
         this.licenseAllocated = licenseAllocated;
         this.comment = comment;
+        this.organizationName = organizationName;
+        this.contactName = contactName;
+        this.contactPhone = contactPhone;
+        this.contactEmail = contactEmail;
     }
 
 }

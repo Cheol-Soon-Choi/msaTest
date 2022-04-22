@@ -15,6 +15,7 @@ public class OrganizationController {
 
     @GetMapping("/{organizationId}")
     public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
+        System.out.println("성공");
         return organizationService.getOrg(organizationId);
     }
 
