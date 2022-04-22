@@ -19,7 +19,7 @@ public class OrganizationDiscoveryClient {
 
     public Organization getOrganization(String organizationId) {
         RestTemplate restTemplate = new RestTemplate();
-        List<ServiceInstance> instances = discoveryClient.getInstances("organizationservice");
+        List<ServiceInstance> instances = discoveryClient.getInstances("ServiceB1");
 
         if (instances.size()==0) return null;
         String serviceUri = String.format("%s/v1/organizations/%s",instances.get(0).getUri().toString(), organizationId);
