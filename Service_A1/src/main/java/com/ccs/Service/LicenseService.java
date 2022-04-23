@@ -85,17 +85,26 @@ public class LicenseService {
     }
 
     @HystrixCommand(fallbackMethod = "buildFallbackLicenseList",
+            //쓰레드 풀 설정 - 벌크헤드
             threadPoolKey = "licenseByOrgThreadPool",
-            threadPoolProperties =
-                    {@HystrixProperty(name = "coreSize", value = "30"),
-                            @HystrixProperty(name = "maxQueueSize", value = "10")},
+            threadPoolProperties = {
+                    @HystrixProperty(name = "coreSize", value = "30"),
+                    @HystrixProperty(name = "maxQueueSize", value = "10")
+            },
+            //회로 차단기 설정 = 15초 동안 10건의 호출 중 75% 에러(타임아웃, 예외, HTTP 500 등)가 발생하면 Circuit open 7초 수행
             commandProperties = {
-                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
-                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "75"),
-                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "7000"),
+                    // 12초 이상 지연되면 time out
+//                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "12000"),
+                    // =15초 (default = 10초)
                     @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "15000"),
-                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5"),
-//                    @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds", value="12000")
+                    // =10건 (default = 20건) =최소 호출 횟수
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+                    // =75% (default = 50%)
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "75"),
+                    // Circuit open 7초 (default = 5초) =회로 차단기를 차단한 후 서비스 재호출을 위해 대기하는 시간
+                    @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "7000"),
+                    // 설정한 시간 간격 동안 통계 수집 횟수 (default = 10)
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets", value = "5")
             }
     )
     public List<License> getLicensesByOrg(String organizationId) {
