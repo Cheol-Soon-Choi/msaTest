@@ -7,10 +7,13 @@ import com.ccs.Config.ServiceConfig;
 import com.ccs.Model.entity.License;
 import com.ccs.Model.entity.LicenseRepository;
 import com.ccs.Model.entity.Organization;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -23,32 +26,33 @@ public class LicenseService {
     private final OrganizationRestTemplateClient organizationRestClient;
     private final OrganizationDiscoveryClient organizationDiscoveryClient;
 
-    private Organization retrieveOrgInfo(String organizationId, String clientType) {
-        Organization organization = null;
+//    private Organization retrieveOrgInfo(String organizationId, String clientType) {
+//        Organization organization = null;
+//
+//        switch (clientType) {
+//            case "feign":
+//                System.out.println("I am using the feign client");
+//                organization = organizationFeignClient.getOrganization(organizationId);
+//                break;
+//            case "rest":
+//                System.out.println("I am using the rest client");
+//                organization = organizationRestClient.getOrganization(organizationId);
+//                break;
+//            case "discovery":
+//                System.out.println("I am using the discovery client");
+//                organization = organizationDiscoveryClient.getOrganization(organizationId);
+//                break;
+//            default:
+//                organization = organizationRestClient.getOrganization(organizationId);
+//        }
+//
+//        return organization;
+//    }
 
-        switch (clientType) {
-            case "feign":
-                System.out.println("I am using the feign client");
-                organization = organizationFeignClient.getOrganization(organizationId);
-                break;
-            case "rest":
-                System.out.println("I am using the rest client");
-                organization = organizationRestClient.getOrganization(organizationId);
-                break;
-            case "discovery":
-                System.out.println("I am using the discovery client");
-                organization = organizationDiscoveryClient.getOrganization(organizationId);
-                break;
-            default:
-                organization = organizationRestClient.getOrganization(organizationId);
-        }
-
-        return organization;
-    }
-
-    public License getLicense(String organizationId, String licenseId, String clientType) {
+    public License getLicense(String organizationId, String licenseId) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
-        Organization org = retrieveOrgInfo(organizationId, clientType);
+//        Organization org = retrieveOrgInfo(organizationId, clientType);
+        Organization org = getOrganization(organizationId);
 
         license.setComment(serviceConfig.getExampleProperty());
         license.setOrganizationName(org.getName());
@@ -57,8 +61,42 @@ public class LicenseService {
         license.setContactPhone(org.getContactPhone());
         return license;
     }
+    private void randomlyRunLong(){
+        Random rand = new Random();
 
+        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+        if (randomNum==3) sleep();
+    }
+
+    private void sleep(){
+        try {
+            Thread.sleep(11000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @HystrixCommand
+    public Organization getOrganization(String organizationId){
+        return organizationRestClient.getOrganization(organizationId);
+    }
+
+    @HystrixCommand(//fallbackMethod = "buildFallbackLicenseList",
+            threadPoolKey = "licenseByOrgThreadPool",
+            threadPoolProperties =
+                    {@HystrixProperty(name = "coreSize",value="30"),
+                            @HystrixProperty(name="maxQueueSize", value="10")},
+            commandProperties={
+                    @HystrixProperty(name="circuitBreaker.requestVolumeThreshold", value="10"),
+                    @HystrixProperty(name="circuitBreaker.errorThresholdPercentage", value="75"),
+                    @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds", value="7000"),
+                    @HystrixProperty(name="metrics.rollingStats.timeInMilliseconds", value="15000"),
+                    @HystrixProperty(name="metrics.rollingStats.numBuckets", value="5")}
+    )
     public List<License> getLicensesByOrg(String organizationId) {
+        randomlyRunLong();
+
         return licenseRepository.findByOrganizationId(organizationId);
     }
 

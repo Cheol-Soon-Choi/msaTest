@@ -28,15 +28,16 @@ public class LicenseContoller {
     public License getLicenses(@PathVariable("organizationId") String organizationId,
                                @PathVariable("licenseId") String licenseId) {
 
-        return licenseService.getLicense(organizationId, licenseId, "");
+//        return licenseService.getLicense(organizationId, licenseId, "");
+        return licenseService.getLicense(organizationId, licenseId);
     }
 
-    @GetMapping("/{licenseId}/{clientType}")
-    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
-                                          @PathVariable("licenseId") String licenseId,
-                                          @PathVariable("clientType") String clientType) {
-
-        return licenseService.getLicense(organizationId,licenseId, clientType);
-    }
+//    @GetMapping("/{licenseId}/{clientType}")
+//    public License getLicensesWithClient( @PathVariable("organizationId") String organizationId,
+//                                          @PathVariable("licenseId") String licenseId,
+//                                          @PathVariable("clientType") String clientType) {
+//
+//        return licenseService.getLicense(organizationId,licenseId, clientType);
+//    }
 
 }
