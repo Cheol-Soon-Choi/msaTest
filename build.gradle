@@ -94,5 +94,13 @@ project(':EurekaServer') {
     dependencies {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     }
+}
 
+project(':ZuulServer') {
+    dependencies {
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.6.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.cloud:spring-cloud-config-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    }
 }

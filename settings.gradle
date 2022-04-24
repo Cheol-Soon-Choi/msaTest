@@ -3,4 +3,5 @@ include 'Service_A1'
 include 'Service_B1'
 include 'ConfigServer'
 include 'EurekaServer'
+include 'ZuulServer'
 
