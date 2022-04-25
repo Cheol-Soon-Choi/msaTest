@@ -7,9 +7,12 @@ import com.ccs.Config.ServiceConfig;
 import com.ccs.Model.entity.License;
 import com.ccs.Model.entity.LicenseRepository;
 import com.ccs.Model.entity.Organization;
+import com.ccs.util.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class LicenseService {
     private final OrganizationFeignClient organizationFeignClient;
     private final OrganizationRestTemplateClient organizationRestClient;
     private final OrganizationDiscoveryClient organizationDiscoveryClient;
+    private static final Logger logger = LoggerFactory.getLogger(LicenseService.class);
 
 //    private Organization retrieveOrgInfo(String organizationId, String clientType) {
 //        Organization organization = null;
@@ -108,6 +112,7 @@ public class LicenseService {
             }
     )
     public List<License> getLicensesByOrg(String organizationId) {
+        logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         randomlyRunLong();
 
         return licenseRepository.findByOrganizationId(organizationId);
