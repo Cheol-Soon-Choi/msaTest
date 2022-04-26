@@ -1,6 +1,6 @@
 package com.ccs.Contoller;
 
-import com.ccs.Model.entity.License;
+import com.ccs.Model.License;
 import com.ccs.Service.LicenseService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;

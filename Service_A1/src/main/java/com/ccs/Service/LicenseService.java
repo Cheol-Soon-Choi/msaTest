@@ -4,9 +4,9 @@ import com.ccs.Clients.OrganizationDiscoveryClient;
 import com.ccs.Clients.OrganizationFeignClient;
 import com.ccs.Clients.OrganizationRestTemplateClient;
 import com.ccs.Config.ServiceConfig;
-import com.ccs.Model.entity.License;
-import com.ccs.Model.entity.LicenseRepository;
-import com.ccs.Model.entity.Organization;
+import com.ccs.Model.License;
+import com.ccs.Model.LicenseRepository;
+import com.ccs.Model.Organization;
 import com.ccs.utils.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -114,7 +114,7 @@ public class LicenseService {
     )
     public List<License> getLicensesByOrg(String organizationId) {
         logger.debug("LicenseService.getLicensesByOrg  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
-        randomlyRunLong();
+//        randomlyRunLong();
 
         return licenseRepository.findByOrganizationId(organizationId);
     }

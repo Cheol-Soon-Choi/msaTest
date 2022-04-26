@@ -1,6 +1,6 @@
 package com.ccs.Clients;
 
-import com.ccs.Model.entity.Organization;
+import com.ccs.Model.Organization;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

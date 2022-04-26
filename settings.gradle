@@ -6,4 +6,5 @@ include 'EurekaServer'
 include 'ZuulServer'
 include 'SpecialRoutesService'
 include 'Service_B1_New'
+include 'AuthServer'
 

@@ -1,6 +1,6 @@
 package com.ccs.Clients;
 
-import com.ccs.Model.entity.Organization;
+import com.ccs.Model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;

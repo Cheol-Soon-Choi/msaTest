@@ -19,12 +19,12 @@ public class OrganizationController {
 
     @GetMapping("/{organizationId}")
     public Organization getOrganization(@PathVariable("organizationId") String organizationId) {
-        logger.debug(String.format("Looking up data for org {}", organizationId));
+        logger.debug("Looking up data for org {}", organizationId);
 
         Organization org = organizationService.getOrg(organizationId);
         org.setContactName("OLD::" + org.getContactName());
 
-        return organizationService.getOrg(organizationId);
+        return org;
     }
 
     @PutMapping("/{organizationId}")

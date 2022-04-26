@@ -1,4 +1,4 @@
-package com.ccs.Model.entity;
+package com.ccs.Model;
 
 import lombok.Getter;
 import lombok.Setter;
