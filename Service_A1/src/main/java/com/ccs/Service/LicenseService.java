@@ -7,7 +7,7 @@ import com.ccs.Config.ServiceConfig;
 import com.ccs.Model.entity.License;
 import com.ccs.Model.entity.LicenseRepository;
 import com.ccs.Model.entity.Organization;
-import com.ccs.util.UserContextHolder;
+import com.ccs.utils.UserContextHolder;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +54,7 @@ public class LicenseService {
 //        return organization;
 //    }
 
+    @HystrixCommand
     public License getLicense(String organizationId, String licenseId) {
         License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
 //        Organization org = retrieveOrgInfo(organizationId, clientType);

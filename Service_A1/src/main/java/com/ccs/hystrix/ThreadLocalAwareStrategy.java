@@ -1,6 +1,6 @@
 package com.ccs.hystrix;
 
-import com.ccs.util.UserContextHolder;
+import com.ccs.utils.UserContextHolder;
 import com.netflix.hystrix.HystrixThreadPoolKey;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 import com.netflix.hystrix.strategy.concurrency.HystrixRequestVariable;

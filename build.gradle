@@ -47,7 +47,7 @@ subprojects {
         implementation 'org.postgresql:postgresql:42.3.3'
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator:2.3.2.RELEASE'
 
     }
 
@@ -65,9 +65,9 @@ project(':Service_A1') {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.security:spring-security-rsa'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.10.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
     }
 }
 project(':Service_B1') {
@@ -75,9 +75,9 @@ project(':Service_B1') {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.security:spring-security-rsa'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.10.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
     }
 }
 
@@ -92,15 +92,16 @@ project(':ConfigServer') {
 
 project(':EurekaServer') {
     dependencies {
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server:2.2.5.RELEASE'
     }
 }
 
 project(':ZuulServer') {
     dependencies {
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.6.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2.5.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
+        implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
     }
 }

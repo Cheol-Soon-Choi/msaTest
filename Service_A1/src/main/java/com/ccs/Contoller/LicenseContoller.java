@@ -25,14 +25,14 @@ public class LicenseContoller {
 
     @GetMapping("/")
     public List<License> getLicenses(@PathVariable("organizationId") String organizationId) {
-        logger.debug("Found tmx-correlation-id in license-service-controller: {} ", request.getHeader("tmx-correlation-id"));
+
         return licenseService.getLicensesByOrg(organizationId);
     }
 
     @GetMapping("/{licenseId}")
     public License getLicenses(@PathVariable("organizationId") String organizationId,
                                @PathVariable("licenseId") String licenseId) {
-
+        logger.debug("Found tmx-correlation-id in license-service-controller: {} ", request.getHeader("tmx-correlation-id"));
 //        return licenseService.getLicense(organizationId, licenseId, "");
         return licenseService.getLicense(organizationId, licenseId);
     }

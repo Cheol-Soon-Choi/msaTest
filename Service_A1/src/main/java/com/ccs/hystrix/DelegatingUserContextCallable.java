@@ -1,8 +1,8 @@
 package com.ccs.hystrix;
 
 
-import com.ccs.util.UserContext;
-import com.ccs.util.UserContextHolder;
+import com.ccs.utils.UserContext;
+import com.ccs.utils.UserContextHolder;
 
 import java.util.concurrent.Callable;
 

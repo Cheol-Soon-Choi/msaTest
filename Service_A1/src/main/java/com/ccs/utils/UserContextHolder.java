@@ -1,10 +1,10 @@
-package com.ccs.util;
+package com.ccs.utils;
 
 
 import org.springframework.util.Assert;
 
 public class UserContextHolder {
-    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<>();
+    private static final ThreadLocal<UserContext> userContext = new ThreadLocal<UserContext>();
 
     public static final UserContext getContext(){
         UserContext context = userContext.get();
