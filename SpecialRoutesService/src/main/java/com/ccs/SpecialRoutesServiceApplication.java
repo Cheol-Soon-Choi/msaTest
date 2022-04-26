@@ -6,7 +6,7 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 @SpringBootApplication
 @EnableHystrix
-public class Service_B1Application {
+public class SpecialRoutesServiceApplication {
 
 //    @Bean
 //    public Filter userContextFilter() {
@@ -14,7 +14,8 @@ public class Service_B1Application {
 //        return userContextFilter;
 //    }
 
+
     public static void main(String[] args) {
-        SpringApplication.run(Service_B1Application.class, args);
+        SpringApplication.run(SpecialRoutesServiceApplication.class, args);
     }
 }

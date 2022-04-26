@@ -17,16 +17,6 @@ import java.util.List;
 @RefreshScope
 public class ZuulApplication {
 
-//    @Bean
-//    public TrackingFilter preFilter(){
-//        return new TrackingFilter();
-//    }
-//
-//    @Bean
-//    public ResponseFilter postFilter(){
-//        return new ResponseFilter();
-//    }
-
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate(){

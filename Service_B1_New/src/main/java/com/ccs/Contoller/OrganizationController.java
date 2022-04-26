@@ -22,7 +22,7 @@ public class OrganizationController {
         logger.debug(String.format("Looking up data for org {}", organizationId));
 
         Organization org = organizationService.getOrg(organizationId);
-        org.setContactName("OLD::" + org.getContactName());
+        org.setContactName("NEW::" + org.getContactName());
 
         return organizationService.getOrg(organizationId);
     }

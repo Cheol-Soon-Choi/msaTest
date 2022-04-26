@@ -4,4 +4,6 @@ include 'Service_B1'
 include 'ConfigServer'
 include 'EurekaServer'
 include 'ZuulServer'
+include 'SpecialRoutesService'
+include 'Service_B1_New'
 
