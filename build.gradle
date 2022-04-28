@@ -70,8 +70,6 @@ project(':Service_A1') {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-security:2.0.0.RELEASE'
         implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
-
-//        implementation 'org.springframework.security:spring-security-jwt'
     }
 }
 project(':Service_B1') {
@@ -84,7 +82,6 @@ project(':Service_B1') {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-security:2.0.0.RELEASE'
         implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
-//        implementation 'org.springframework.security:spring-security-jwt'
     }
 }
 
@@ -111,6 +108,7 @@ project(':ZuulServer') {
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+        implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
     }
 }

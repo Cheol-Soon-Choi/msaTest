@@ -3,8 +3,7 @@ package com.ccs.filters;
 import com.ccs.config.ServiceConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,15 +43,15 @@ public class TrackingFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
 
         if (isCorrelationIdPresent()) {
-            logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
+            logger.debug("***** tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
         } else {
             filterUtils.setCorrelationId(generateCorrelationId());
-            logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
+            logger.debug("***** tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
         }
 
-        System.out.println("The organization id from the token is : " + getOrganizationId());
+        System.out.println("***** The organization id from the token is : " + getOrganizationId());
         filterUtils.setOrgId(getOrganizationId());
-        logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
+        logger.debug("***** Processing incoming request for {}.", ctx.getRequest().getRequestURI());
 
         return null;
     }
@@ -73,15 +72,25 @@ public class TrackingFilter extends ZuulFilter {
 
         String result = "";
         if (filterUtils.getAuthToken() != null) {
-
             String authToken = filterUtils.getAuthToken().replace("Bearer ", "");
             try {
                 Claims claims = Jwts.parser()
                         .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
                         .parseClaimsJws(authToken).getBody();
                 result = (String) claims.get("organizationId");
+                logger.debug("***** claims: {}", claims);
+            } catch (SignatureException e) {
+                logger.error("Invalid JWT signature: {}", e.getMessage());
+            } catch (MalformedJwtException e) {
+                logger.error("Invalid JWT token: {}", e.getMessage());
+            } catch (ExpiredJwtException e) {
+                logger.error("JWT token is expired: {}", e.getMessage());
+            } catch (UnsupportedJwtException e) {
+                logger.error("JWT token is unsupported: {}", e.getMessage());
+            } catch (IllegalArgumentException e) {
+                logger.error("JWT claims string is empty: {}", e.getMessage());
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Exception : {}", e.getMessage());
             }
         }
         return result;

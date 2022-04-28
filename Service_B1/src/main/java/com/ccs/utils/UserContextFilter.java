@@ -16,17 +16,17 @@ public class UserContextFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
 
-        logger.debug("Entering the UserContextFilter for the organization service");
+        logger.debug("*****  Entering the UserContextFilter for the organization service");
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
-        System.out.println("**** I am entering the organization service id with auth token: " + httpServletRequest.getHeader("Authorization"));
+        System.out.println("***** I am entering the organization service id with auth token: " + httpServletRequest.getHeader("Authorization"));
 
         UserContextHolder.getContext().setCorrelationId(httpServletRequest.getHeader(UserContext.CORRELATION_ID));
         UserContextHolder.getContext().setUserId(httpServletRequest.getHeader(UserContext.USER_ID));
         UserContextHolder.getContext().setAuthToken(httpServletRequest.getHeader(UserContext.AUTH_TOKEN));
         UserContextHolder.getContext().setOrgId(httpServletRequest.getHeader(UserContext.ORG_ID));
 
-        logger.debug("Organization Service Incoming Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
-        logger.debug("Exiting the UserContextFilter");
+        logger.debug("***** Organization Service Incoming Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.debug("***** Exiting the UserContextFilter");
         filterChain.doFilter(httpServletRequest, servletResponse);
     }
 
