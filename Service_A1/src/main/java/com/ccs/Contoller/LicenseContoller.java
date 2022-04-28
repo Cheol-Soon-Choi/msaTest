@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LicenseContoller {
 
-//    private final License license;
     private final LicenseService licenseService;
     private final HttpServletRequest request;
     private static final Logger logger = LoggerFactory.getLogger(LicenseContoller.class);
@@ -32,6 +31,7 @@ public class LicenseContoller {
     @GetMapping("/{licenseId}")
     public License getLicenses(@PathVariable("organizationId") String organizationId,
                                @PathVariable("licenseId") String licenseId) {
+        logger.debug("Entering the license-service-controller");
         logger.debug("Found tmx-correlation-id in license-service-controller: {} ", request.getHeader("tmx-correlation-id"));
 //        return licenseService.getLicense(organizationId, licenseId, "");
         return licenseService.getLicense(organizationId, licenseId);

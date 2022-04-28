@@ -39,8 +39,8 @@ public class OrganizationController {
 
     @DeleteMapping("/{organizationId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteOrganization(@PathVariable("orgId") String orgId, @RequestBody Organization org) {
-        organizationService.deleteOrg(org);
+    public void deleteOrganization(@PathVariable("organizationId") String orgId) {
+        organizationService.deleteOrg(orgId);
     }
 
 }

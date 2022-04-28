@@ -1,5 +1,6 @@
 package com.ccs.filters;
 
+import com.ccs.config.ServiceConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ public class TrackingFilter extends ZuulFilter {
 
     @Autowired
     FilterUtils filterUtils;
+
+    @Autowired
+    private ServiceConfig serviceConfig;
 
     @Override
     public String filterType() {
@@ -43,7 +47,10 @@ public class TrackingFilter extends ZuulFilter {
         }
 
         RequestContext ctx = RequestContext.getCurrentContext();
-        logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
+
+//        System.out.println("The organization id from the token is : " + getOrganizationId());
+//        filterUtils.setOrgId(getOrganizationId());
+//        logger.debug("Processing incoming request for {}.",  ctx.getRequest().getRequestURI());
         return null;
     }
 
@@ -58,4 +65,24 @@ public class TrackingFilter extends ZuulFilter {
     private String generateCorrelationId() {
         return java.util.UUID.randomUUID().toString();
     }
+
+//    private String getOrganizationId(){
+//
+//        String result="";
+//        if (filterUtils.getAuthToken()!=null){
+//
+//            String authToken = filterUtils.getAuthToken().replace("Bearer ","");
+//            try {
+//                Claims claims = Jwts.parser()
+//                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+//                        .parseClaimsJws(authToken).getBody();
+//                result = (String) claims.get("organizationId");
+//            }
+//            catch (Exception e){
+//                e.printStackTrace();
+//            }
+//        }
+//        return result;
+//    }
+
 }
