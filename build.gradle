@@ -110,7 +110,7 @@ project(':ZuulServer') {
         implementation 'org.springframework.cloud:spring-cloud-config-client'
         implementation 'org.springframework.cloud:spring-cloud-starter-config'
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
-//        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+        implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
 
     }
 }

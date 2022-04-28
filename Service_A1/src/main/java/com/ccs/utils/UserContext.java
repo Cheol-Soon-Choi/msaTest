@@ -46,5 +46,4 @@ public class UserContext {
     public static void setOrgId(String aOrg) {
         orgId.set(aOrg);
     }
-
 }

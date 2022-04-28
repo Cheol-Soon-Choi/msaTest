@@ -3,6 +3,8 @@ package com.ccs.filters;
 import com.ccs.config.ServiceConfig;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +41,8 @@ public class TrackingFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+
         if (isCorrelationIdPresent()) {
             logger.debug("tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
         } else {
@@ -46,11 +50,10 @@ public class TrackingFilter extends ZuulFilter {
             logger.debug("tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
         }
 
-        RequestContext ctx = RequestContext.getCurrentContext();
+        System.out.println("The organization id from the token is : " + getOrganizationId());
+        filterUtils.setOrgId(getOrganizationId());
+        logger.debug("Processing incoming request for {}.", ctx.getRequest().getRequestURI());
 
-//        System.out.println("The organization id from the token is : " + getOrganizationId());
-//        filterUtils.setOrgId(getOrganizationId());
-//        logger.debug("Processing incoming request for {}.",  ctx.getRequest().getRequestURI());
         return null;
     }
 
@@ -66,23 +69,22 @@ public class TrackingFilter extends ZuulFilter {
         return java.util.UUID.randomUUID().toString();
     }
 
-//    private String getOrganizationId(){
-//
-//        String result="";
-//        if (filterUtils.getAuthToken()!=null){
-//
-//            String authToken = filterUtils.getAuthToken().replace("Bearer ","");
-//            try {
-//                Claims claims = Jwts.parser()
-//                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
-//                        .parseClaimsJws(authToken).getBody();
-//                result = (String) claims.get("organizationId");
-//            }
-//            catch (Exception e){
-//                e.printStackTrace();
-//            }
-//        }
-//        return result;
-//    }
+    private String getOrganizationId() {
+
+        String result = "";
+        if (filterUtils.getAuthToken() != null) {
+
+            String authToken = filterUtils.getAuthToken().replace("Bearer ", "");
+            try {
+                Claims claims = Jwts.parser()
+                        .setSigningKey(serviceConfig.getJwtSigningKey().getBytes("UTF-8"))
+                        .parseClaimsJws(authToken).getBody();
+                result = (String) claims.get("organizationId");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
 
 }
