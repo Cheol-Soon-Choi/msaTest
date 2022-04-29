@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -19,6 +21,7 @@ import java.util.List;
 @EnableHystrix
 @EnableResourceServer
 @EnableEurekaClient
+@EnableBinding(Source.class) // 메시지 브로커와 바인딩 + Soruce 클래스에 정의된 채널을 이용해 메시지 브로커와 통신
 public class Service_B1Application {
 
     @Primary

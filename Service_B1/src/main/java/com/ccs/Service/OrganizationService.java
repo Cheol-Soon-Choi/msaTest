@@ -2,6 +2,7 @@ package com.ccs.Service;
 
 import com.ccs.Model.Organization;
 import com.ccs.Model.OrganizationRepository;
+import com.ccs.event.soruce.SimpleSourceBean;
 import com.ccs.utils.UserContextHolder;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrganizationService {
     private final OrganizationRepository organizationRepository;
+    private final SimpleSourceBean simpleSourceBean;
 
     private static final Logger logger = LoggerFactory.getLogger(OrganizationService.class);
 
@@ -28,7 +30,7 @@ public class OrganizationService {
         org.setId(UUID.randomUUID().toString());
 
         organizationRepository.save(org);
-
+        simpleSourceBean.publishOrgChange("SAVE", org.getId());
     }
 
     public void updateOrg(Organization org) {
