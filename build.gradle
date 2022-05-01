@@ -1,17 +1,14 @@
-plugins {
-    id 'org.springframework.boot' version '2.3.7.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'java'
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+buildscript {
+    ext {
+        springBootVersion = '2.3.7.RELEASE'
     }
-}
-
-repositories {
-    mavenCentral()
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+    }
 }
 
 subprojects {
@@ -28,6 +25,10 @@ subprojects {
         compileOnly {
             extendsFrom annotationProcessor
         }
+    }
+
+    jar {
+        enabled = false
     }
 
     repositories {
@@ -70,8 +71,8 @@ project(':Service_A1') {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-security:2.0.0.RELEASE'
         implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-stream:2.0.0.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:2.0.0.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-stream:3.0.8.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:3.0.8.RELEASE'
     }
 }
 project(':Service_B1') {
@@ -84,8 +85,8 @@ project(':Service_B1') {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-security:2.0.0.RELEASE'
         implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-stream:2.0.0.RELEASE'
-        implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:2.0.0.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-stream:3.0.8.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:3.0.8.RELEASE'
     }
 }
 

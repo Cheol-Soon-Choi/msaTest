@@ -22,7 +22,7 @@ public class SimpleSourceBean {
     }
 
     public void publishOrgChange(String action, String orgId) {
-        logger.debug("Sending Kafka message {} for Organization Id: {}", action, orgId);
+        logger.debug("***** Sending Kafka message {} for Organization Id: {}", action, orgId);
 
         //POJO
         OrganizationChangeModel change = new OrganizationChangeModel(

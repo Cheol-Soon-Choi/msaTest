@@ -32,9 +32,9 @@ public class Service_A1Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Service_A1Application.class);
 
-    @StreamListener(Sink.INPUT) // 메시지가 입력채널에서 수신될 때마다 메서드 수행 oupput->input
+    @StreamListener(Sink.INPUT) // 메시지가 입력채널에서 수신될 때마다 메서드 수행 output->input
     public void loggerSink(OrganizationChangeModel orgChange) {
-        logger.debug("Received an event for organization id {}", orgChange.getOrganizationId());
+        logger.debug("***** Received an event for organization id {}", orgChange.getOrganizationId());
     }
 
     //라이센스->조직 서비스 호출 시 JWT 토큰 전파하기 위해 customRestTemplate 사용
