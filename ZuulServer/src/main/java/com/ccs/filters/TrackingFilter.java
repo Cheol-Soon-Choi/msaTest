@@ -42,12 +42,12 @@ public class TrackingFilter extends ZuulFilter {
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        if (isCorrelationIdPresent()) {
-            logger.debug("***** tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
-        } else {
-            filterUtils.setCorrelationId(generateCorrelationId());
-            logger.debug("***** tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
-        }
+//        if (isCorrelationIdPresent()) {
+//            logger.debug("***** tmx-correlation-id found in tracking filter: {}. ", filterUtils.getCorrelationId());
+//        } else {
+//            filterUtils.setCorrelationId(generateCorrelationId());
+//            logger.debug("***** tmx-correlation-id generated in tracking filter: {}.", filterUtils.getCorrelationId());
+//        }
 
         System.out.println("***** The organization id from the token is : " + getOrganizationId());
         filterUtils.setOrgId(getOrganizationId());
@@ -56,17 +56,17 @@ public class TrackingFilter extends ZuulFilter {
         return null;
     }
 
-    private boolean isCorrelationIdPresent() {
-        if (filterUtils.getCorrelationId() != null) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private String generateCorrelationId() {
-        return java.util.UUID.randomUUID().toString();
-    }
+//    private boolean isCorrelationIdPresent() {
+//        if (filterUtils.getCorrelationId() != null) {
+//            return true;
+//        }
+//
+//        return false;
+//    }
+//
+//    private String generateCorrelationId() {
+//        return java.util.UUID.randomUUID().toString();
+//    }
 
     private String getOrganizationId() {
 

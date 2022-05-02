@@ -1,6 +1,7 @@
 package com.ccs.filters;
 
 
+import brave.Tracer;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.slf4j.Logger;
@@ -16,6 +17,9 @@ public class ResponseFilter extends ZuulFilter{
     
     @Autowired
     FilterUtils filterUtils;
+
+    @Autowired
+    Tracer tracer;
 
     @Override
     public String filterType() {
@@ -36,9 +40,10 @@ public class ResponseFilter extends ZuulFilter{
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
 
-        logger.debug("***** Adding the correlation id to the outbound headers. {}", filterUtils.getCorrelationId());
-        ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
+//        logger.debug("***** Adding the correlation id to the outbound headers. {}", filterUtils.getCorrelationId());
+//        ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, filterUtils.getCorrelationId());
 
+        ctx.getResponse().addHeader(FilterUtils.CORRELATION_ID, tracer.currentSpan().context().traceIdString());
         logger.debug("***** Completing outgoing request for {}.", ctx.getRequest().getRequestURI());
         return null;
     }

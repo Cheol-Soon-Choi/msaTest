@@ -74,6 +74,8 @@ project(':Service_A1') {
         implementation 'org.springframework.cloud:spring-cloud-stream:3.0.8.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:3.0.8.RELEASE'
         implementation 'org.springframework.boot:spring-boot-starter-data-redis:2.3.4.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin:2.0.0.RELEASE'
     }
 }
 project(':Service_B1') {
@@ -88,6 +90,8 @@ project(':Service_B1') {
         implementation 'org.springframework.security:spring-security-jwt:1.0.9.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-stream:3.0.8.RELEASE'
         implementation 'org.springframework.cloud:spring-cloud-starter-stream-kafka:3.0.8.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin:2.0.0.RELEASE'
     }
 }
 
@@ -115,6 +119,8 @@ project(':ZuulServer') {
         implementation 'org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.5.RELEASE'
         implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
         implementation 'javax.xml.bind:jaxb-api:2.3.1'
+        implementation 'org.springframework.cloud:spring-cloud-starter-sleuth:2.0.0.RELEASE'
+        implementation 'org.springframework.cloud:spring-cloud-sleuth-zipkin:2.0.0.RELEASE'
 
     }
 }

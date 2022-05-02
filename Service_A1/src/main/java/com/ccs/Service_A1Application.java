@@ -1,5 +1,6 @@
 package com.ccs;
 
+import brave.sampler.Sampler;
 import com.ccs.Config.ServiceConfig;
 import com.ccs.event.CustomChannels;
 import com.ccs.utils.UserContextInterceptor;
@@ -79,6 +80,11 @@ public class Service_A1Application {
         redisStandaloneConfiguration.setHostName(serviceConfig.getRedisServer());
         redisStandaloneConfiguration.setPort(Integer.parseInt(serviceConfig.getRedisPort()));
         return new LettuceConnectionFactory(redisStandaloneConfiguration);
+    }
+
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
     }
 
     public static void main(String[] args) {

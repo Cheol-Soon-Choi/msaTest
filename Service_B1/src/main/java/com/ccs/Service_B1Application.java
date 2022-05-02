@@ -1,5 +1,6 @@
 package com.ccs;
 
+import brave.sampler.Sampler;
 import com.ccs.utils.UserContextInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +38,11 @@ public class Service_B1Application {
         }
 
         return template;
+    }
+
+    @Bean
+    public Sampler defaultSampler() {
+        return Sampler.ALWAYS_SAMPLE;
     }
 
     public static void main(String[] args) {
