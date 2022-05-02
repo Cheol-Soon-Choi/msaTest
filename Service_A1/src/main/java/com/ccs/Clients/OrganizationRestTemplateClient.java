@@ -1,5 +1,6 @@
 package com.ccs.Clients;
 
+import brave.Tracer;
 import com.ccs.Model.Organization;
 import com.ccs.Repository.OrganizationRedisRepository;
 import com.ccs.utils.UserContext;
@@ -20,14 +21,22 @@ public class OrganizationRestTemplateClient {
     @Autowired
     OrganizationRedisRepository orgRedisRepo;
 
+    @Autowired
+    Tracer tracer;
+
     private static final Logger logger = LoggerFactory.getLogger(OrganizationRestTemplateClient.class);
 
     private Organization checkRedisCache(String organizationId) {
-        try {
+        brave.Span newSpan = tracer.nextSpan().name("readLicensingDataFromRedis");
+        try (Tracer.SpanInScope ws = tracer.withSpanInScope(newSpan.start())) {
             return orgRedisRepo.findOrganization(organizationId);
         } catch (Exception ex) {
             logger.error("***** Error encountered while trying to retrieve organization {} check Redis Cache.  Exception {}", organizationId, ex);
             return null;
+        } finally {
+            newSpan.tag("peer.service", "redis");
+            newSpan.annotate("cr");
+            newSpan.finish();
         }
     }
 
