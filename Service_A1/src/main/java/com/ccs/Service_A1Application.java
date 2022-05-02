@@ -1,7 +1,7 @@
 package com.ccs;
 
 import com.ccs.Config.ServiceConfig;
-import com.ccs.event.models.OrganizationChangeModel;
+import com.ccs.event.CustomChannels;
 import com.ccs.utils.UserContextInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +14,6 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.messaging.Sink;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -35,7 +33,7 @@ import java.util.List;
 @EnableHystrix
 @EnableResourceServer
 @EnableEurekaClient
-@EnableBinding(Sink.class) // 메시지브로커 바인딩 + 메시지 수신을 위한 sink 채널 사용
+@EnableBinding(CustomChannels.class) // 메시지브로커 바인딩 + 메시지 수신을 위한 채널(커스텀) 사용
 @EnableCaching
 public class Service_A1Application {
 
@@ -43,10 +41,10 @@ public class Service_A1Application {
     private ServiceConfig serviceConfig;
     private static final Logger logger = LoggerFactory.getLogger(Service_A1Application.class);
 
-    @StreamListener(Sink.INPUT) // 메시지가 입력채널에서 수신될 때마다 메서드 수행 output->input
-    public void loggerSink(OrganizationChangeModel orgChange) {
-        logger.debug("***** Received an event for organization id {}", orgChange.getOrganizationId());
-    }
+//    @StreamListener("inboundOrgChanges") // 메시지가 입력채널에서 수신될 때마다 메서드 수행 output->input
+//    public void loggerSink(OrganizationChangeModel orgChange) {
+//        logger.debug("***** Received an event for organization id {}", orgChange.getOrganizationId());
+//    }
 
     //라이센스->조직 서비스 호출 시 JWT 토큰 전파하기 위해 customRestTemplate 사용
     @Primary

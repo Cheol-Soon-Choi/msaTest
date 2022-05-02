@@ -22,7 +22,7 @@ public class OrganizationService {
 
     public Organization getOrg(String organizationId) {
 
-        logger.debug("OrganizationService.getOrg  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
+        logger.debug("***** OrganizationService.getOrg  Correlation id: {}", UserContextHolder.getContext().getCorrelationId());
         return organizationRepository.findById(organizationId).orElseThrow(EntityNotFoundException::new);
     }
 
